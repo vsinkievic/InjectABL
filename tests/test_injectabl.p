@@ -10,16 +10,18 @@
     Created     : Tue Mar 02 10:56:02 EST 2010
     Notes       :
   ----------------------------------------------------------------------*/
-using   OpenEdge.Core.InjectABL.IKernel.
-using   OpenEdge.Lang.Collections.ICollection.
-using   OpenEdge.Lang.Collections.Collection.
-using   OpenEdge.Core.InjectABL.Binding.Modules.IInjectionModuleCollection.
+using   OpenEdge.InjectABL.IKernel.
+using   OpenEdge.Core.Collections.ICollection.
+using   OpenEdge.Core.Collections.Collection.
+using   OpenEdge.InjectABL.Binding.Modules.IInjectionModuleCollection.
 using OpenEdge.Test.*.
-using OpenEdge.Core.InjectABL.*.
-using OpenEdge.Core.InjectABL.Binding.Parameters.*.
-using OpenEdge.Core.InjectABL.Binding.Modules.*.
+using OpenEdge.InjectABL.*.
+using OpenEdge.InjectABL.Binding.Parameters.*.
+using OpenEdge.InjectABL.Binding.Modules.*.
 using OpenEdge.Lang.*.
 using Progress.Lang.*.
+using OpenEdge.Core.DataTypeEnum.
+using OpenEdge.Core.RoutineTypeEnum.
 
 def var kernel as IKernel.
 def var modules as IInjectionModuleCollection.
@@ -33,7 +35,7 @@ modules:Add(new WarriorModule()).
 
 kernel = new StandardKernel(modules).
 
-warrior = cast(kernel:Get('OpenEdge.Test.Samurai'), Samurai). 
+warrior = cast(kernel:Get(get-class(OpenEdge.Test.Samurai)), Samurai). 
 
 warrior:Attack("the evildoers").
 

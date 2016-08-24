@@ -14,20 +14,18 @@ using OpenEdge.Test.*.
 using Progress.Lang.*.
 
 
-class OpenEdge.Test.S3 implements IExternalizable: 
+class OpenEdge.Test.S3 /*implements IExternalizable*/: 
     
     def private var somePrivatevalue as logical.
     def public var somePUBValue as decimal initial 777.
 
     
-    method public void WriteObject( po as IObjectOutput):
-        po:WriteLogical(somePrivatevalue).
-        po:WriteDecimal(somePUBValue).
-    end method.
-    
-    method public void ReadObject( po as IObjectInput ):
-        somePrivatevalue = po:ReadLogical().
-        somePUBValue = po:ReadDecimal().        
-    end method.
+    METHOD PUBLIC VOID GetObjectData( INPUT info AS System.Runtime.Serialization.SerializationInfo, INPUT context AS System.Runtime.Serialization.StreamingContext ):
+        
+        info:addValue("somePrivatevalue", somePrivatevalue).
+        info:addValue("somePUBValue", somePUBValue).
+        return.
+
+    END METHOD.
 
 end class.

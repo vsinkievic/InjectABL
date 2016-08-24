@@ -35,7 +35,7 @@ class OpenEdge.Test.SamuraiProvider inherits StandardProvider:
         oRoutine  = new Routine(poContext:Binding:Service, '', RoutineTypeEnum:Constructor).
         poContext:Arguments:Add(oRoutine).
         
-        oNewParams[1] = new Parameter(get-class(IWeapon)).
+        oNewParams[1] = new Parameter(get-class(OpenEdge.Test.IWeapon)).
 
         extent(oRoutine:Parameters) = ?.
         oRoutine:Parameters = oNewParams.

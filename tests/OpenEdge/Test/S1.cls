@@ -14,7 +14,7 @@ using OpenEdge.Core.Util.*.
 
 class OpenEdge.Test.S1
     inherits S2
-    implements /*ISerializable, */ IExternalizable:
+    /*implements*/ /*ISerializable, */ /*IExternalizable*/:
     
     def private temp-table tt
         field f1 as char extent 12
@@ -59,7 +59,7 @@ class OpenEdge.Test.S1
         create tt.
     end method. 
         
-    method public void WriteObject(po as IObjectOutput ):
+/*    method public void WriteObject(po as IObjectOutput ):
         po:WriteInt(SomeVar).
         po:WriteHandle(SomeHdl).
         po:WriteObject(MyS0).
@@ -83,5 +83,5 @@ class OpenEdge.Test.S1
        
        po:ReadTable(input-output table tt by-reference).
     end method.
-    
+    */
 end class.

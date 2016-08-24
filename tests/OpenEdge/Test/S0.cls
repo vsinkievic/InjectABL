@@ -9,23 +9,30 @@
   ----------------------------------------------------------------------*/
 block-level on error undo, throw.
 
-using OpenEdge.Core.System.*.
-using OpenEdge.Core.Util.*.
+//using OpenEdge.Core.System.*.
+//using OpenEdge.Core.Util.*.
 using Progress.Lang.*.
+using System.Runtime.Serialization.ISerializable.
 
 class OpenEdge.Test.S0 implements ISerializable: 
 
     
-    method public void ReadObject( input po as IObjectInput ):
+	METHOD PUBLIC VOID GetObjectData( INPUT info AS System.Runtime.Serialization.SerializationInfo, INPUT context AS System.Runtime.Serialization.StreamingContext ):
+		
+		return.
 
-    end method.
+	END METHOD.
 
-
- 
-    
-    method public void WriteObject( input po as IObjectOutput ):
-
-    end method.
+/*    method public void ReadObject( input po as IObjectInput ):  */
+/*                                                                */
+/*    end method.                                                 */
+/*                                                                */
+/*                                                                */
+/*                                                                */
+/*                                                                */
+/*    method public void WriteObject( input po as IObjectOutput ):*/
+/*                                                                */
+/*    end method.                                                 */
 
 
  

@@ -34,9 +34,34 @@ using OpenEdge.Core.SessionClientTypeEnum.
 
 class OpenEdge.InjectABL.Binding.Conditions.SessionTypeConditionResolver implements IConditionResolver:
     
+	DEFINE PRIVATE PROPERTY sessionClientType AS OpenEdge.Core.SessionClientTypeEnum NO-UNDO 
+	GET.
+	SET. 
+
     constructor public SessionTypeConditionResolver():
+        sessionClientType = _determineCurrentSessionClientType().
     end constructor. 
     
+	METHOD PRIVATE SessionClientTypeEnum _determineCurrentSessionClientType(  ):
+		case session:CLIENT-TYPE:
+		  when "4GLClient" or
+		  when "ABLClient" then return SessionClientTypeEnum:ABLClient.
+		  
+		  when "WEBCLIENT" then return SessionClientTypeEnum:WebClient.
+		  
+		  when "APPSERVER" then return SessionClientTypeEnum:AppServer.
+		  
+		  when "WEBSPEED"  then return SessionClientTYpeEnum:WebSpeed.
+		  
+		  when "MULTI-SESSION-AGENT" then return SessionClientTypeEnum:Multi-Session-Agent.
+		  
+		  otherwise return SessionClientTypeEnum:Other.
+		end.
+		
+		RETURN.
+
+	END METHOD.
+
     /** Evaluates the provided conditions. 
         
         @param ICondition The left-hand side argument for the clauseRdatas
@@ -54,17 +79,17 @@ class OpenEdge.InjectABL.Binding.Conditions.SessionTypeConditionResolver impleme
                 /* Available SessionConditions: ThinClient, FatClient, Server */
                 case poRHS:
                     when SessionTypeCondition:ThinClient then
-                        lConditionsMet = SessionClientTypeEnum:CurrentSession:Equals(SessionClientTypeEnum:ABLClient)
-                                      or SessionClientTypeEnum:CurrentSession:Equals(SessionClientTypeEnum:WebClient).
+                        lConditionsMet = sessionClientType = SessionClientTypeEnum:ABLClient
+                                      or sessionClientType = SessionClientTypeEnum:WebClient.
                     when SessionTypeCondition:FatClient then
                         /* A fat client contains client and server components, and thus is a client that is not a WebClient. */
-                        lConditionsMet = SessionClientTypeEnum:CurrentSession:Equals(SessionClientTypeEnum:ABLClient)
-                                       and not SessionClientTypeEnum:CurrentSession:Equals(SessionClientTypeEnum:WebClient).
+                        lConditionsMet = sessionClientType = SessionClientTypeEnum:ABLClient
+                                       and not sessionClientType = SessionClientTypeEnum:WebClient.
                     when SessionTypeCondition:Server then
                         /* We assume that the other/underfined session client types are used as servers. */
-                        lConditionsMet = SessionClientTypeEnum:CurrentSession:Equals(SessionClientTypeEnum:AppServer)
-                                      or SessionClientTypeEnum:CurrentSession:Equals(SessionClientTypeEnum:WebSpeed)
-                                      or SessionClientTypeEnum:CurrentSession:Equals(SessionClientTypeEnum:Other).
+                        lConditionsMet = sessionClientType = SessionClientTypeEnum:AppServer
+                                      or sessionClientType = SessionClientTypeEnum:WebSpeed
+                                      or sessionClientType = SessionClientTypeEnum:Other.
                 end case.
             end.
             when Condition:Name then lConditionsMet = ABLSession:Instance:Name eq poRHS:ToString().

@@ -25,34 +25,22 @@
 block-level on error undo, throw.
 
 using OpenEdge.InjectABL.Binding.BindingTargetEnum.
-using OpenEdge.Core.EnumMember.
 
-class OpenEdge.InjectABL.Binding.BindingTargetEnum inherits EnumMember: 
+enum OpenEdge.InjectABL.Binding.BindingTargetEnum:
+    define enum 
     /** Indicates that the binding is from a type to itself. **/
-    define static public property Self as BindingTargetEnum no-undo get. private set.
+    Self
 
     /** Indicates that the binding is from one type to another. **/
-    define static public property Type as BindingTargetEnum no-undo get. private set.
+    Type
 
     /** Indicates that the binding is from a type to a provider. **/
-    define static public property Provider as BindingTargetEnum no-undo get. private set.
+    Provider
 
     /** Indicates that the binding is from a type to a callback method. **/
-    define static public property Method as BindingTargetEnum no-undo get. private set.
+    Method
 
     /** Indicates that the binding is from a type to a constant value. **/
-    define static public property Constant  as BindingTargetEnum no-undo get. private set.
+    Constant.
         
-    constructor static BindingTargetEnum():
-        BindingTargetEnum:Self = new BindingTargetEnum().
-        BindingTargetEnum:Type = new BindingTargetEnum().
-        BindingTargetEnum:Provider = new BindingTargetEnum().
-        BindingTargetEnum:Method = new BindingTargetEnum().
-        BindingTargetEnum:Constant = new BindingTargetEnum().
-    end constructor.
-    
-    constructor private BindingTargetEnum():
-        super(?,?).
-    end constructor.
-        
-end class.
+end enum.

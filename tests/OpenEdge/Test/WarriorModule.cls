@@ -31,16 +31,16 @@ class OpenEdge.Test.WarriorModule inherits InjectionModule:
         def var obs as IBindingSyntax.
         
         /* Samurai! */
-        obs = Bind('OpenEdge.Test.IWeapon').
-        obs = obs:To('OpenEdge.Test.Sword').
+        obs = Bind(get-class(OpenEdge.Test.IWeapon)).
+        obs = obs:To(get-class(OpenEdge.Test.Sword)).
         
-        obs = Bind('OpenEdge.Test.IWeapon').
-        obs = obs:To('OpenEdge.Test.Shuriken'):Named('alternateweapon').
+        obs = Bind(get-class(OpenEdge.Test.IWeapon)).
+        obs = obs:To(get-class(OpenEdge.Test.Shuriken)):Named('alternateweapon').
         
-        obs = Bind('OpenEdge.Test.Samurai').
+        obs = Bind(get-class(OpenEdge.Test.Samurai)).
         obs = obs
             :ToSelf()
-            :Using('OpenEdge.Test.SamuraiProvider')
+            :Using(get-class(OpenEdge.Test.SamuraiProvider))
             :WithPropertyValue('Dojo', 'Ninja Gym East')
         .
         
@@ -59,7 +59,7 @@ class OpenEdge.Test.WarriorModule inherits InjectionModule:
         
         obs    
             :WithMethodValue('SetNinjaMasters', oParam)
-            :WithMethodValue('SetAlternateWeapon', get-class(IWeapon))
+            :WithMethodValue('SetAlternateWeapon', get-class(OpenEdge.Test.IWeapon))
             /*:OnServerSession()*/
             .
         
